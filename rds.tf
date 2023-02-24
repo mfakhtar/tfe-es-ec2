@@ -18,7 +18,7 @@ locals {
 
 resource "aws_db_subnet_group" "default" {
   name       = "main"
-  subnet_ids = local.private_subnets
+  subnet_ids = [local.private_subnets]
 
   tags = {
     Name = "My DB subnet group"
