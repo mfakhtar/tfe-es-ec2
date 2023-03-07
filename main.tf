@@ -15,7 +15,7 @@ resource "aws_instance" "guide-tfe-es-ec2" {
   vpc_security_group_ids      = [aws_security_group.guide-tfe-es-sg.id]
   subnet_id                   = aws_subnet.guide-tfe-es-sub.id
   associate_public_ip_address = true
-  key_name                    = "guide-tfe-guide"
+  key_name                    = "fawaz-tfe-guide"
   root_block_device {
     volume_size = "50"
   }
