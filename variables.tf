@@ -1,6 +1,5 @@
 variable "az1" {}
 variable "az2" {}
-variable "bucket_name" {}
 variable "db_instance_type" {}
 variable "db_pass" {}
 variable "db_subnet_cidr_az1" {}
