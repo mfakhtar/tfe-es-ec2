@@ -7,18 +7,18 @@ resource "aws_db_instance" "default" {
   username               = var.db_user
   password               = var.db_pass
   skip_final_snapshot    = true
-  multi_az               = true
-  db_subnet_group_name   = aws_db_subnet_group.default.id
   vpc_security_group_ids = [aws_security_group.fawaz-tfe-es-sg-db.id]
+  db_subnet_group_name = aws_db_subnet_group.default.name
 }
 
 locals {
   private_subnets = aws_subnet.fawaz-tfe-es-sub-db.id
 }
 
+
 resource "aws_db_subnet_group" "default" {
   name       = "main"
-  subnet_ids = [local.private_subnets]
+  subnet_ids = [aws_subnet.fawaz-tfe-es-sub-db.id,aws_subnet.fawaz-tfe-es-sub.id]
 
   tags = {
     Name = "My DB subnet group"

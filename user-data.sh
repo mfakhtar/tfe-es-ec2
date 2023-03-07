@@ -7,18 +7,9 @@ sudo apt-get install -y awscli
 #copy license file from S3
 aws s3 cp s3://${bucket_name}/license.rli /tmp/license.rli
 
-# create replicated unattended installer config
-cat > /etc/replicated.conf <<EOF
-{
-  "DaemonAuthenticationType": "password",
-  "DaemonAuthenticationPassword": "${tfe-pwd}",
-  "TlsBootstrapType": "self-signed",
-  "LogLevel": "debug",
-  "ImportSettingsFrom": "/tmp/replicated-settings.json",
-  "LicenseFileLocation": "/tmp/license.rli"
-  "BypassPreflightChecks": true
-}
-EOF
+PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
+PUBLIC_DNS=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname)
 
 cat > /tmp/tfe_settings.json <<EOF
 {
@@ -32,7 +23,7 @@ cat > /tmp/tfe_settings.json <<EOF
         "value": "0"
     },
     "hostname": {
-        "value": "${hostname}"
+        "value": "$PUBLIC_DNS"
     },
     "pg_dbname": {
         "value": "${db_name}"
@@ -62,6 +53,23 @@ cat > /tmp/tfe_settings.json <<EOF
 }
 EOF
 
+# create replicated unattended installer config
+cat > /etc/replicated.conf <<EOF
+{
+  "DaemonAuthenticationType": "password",
+  "DaemonAuthenticationPassword": "${tfe-pwd}",
+  "TlsBootstrapType": "self-signed",
+  "LogLevel": "debug",
+  "ImportSettingsFrom": "/tmp/tfe_settings.json",
+  "LicenseFileLocation": "/tmp/license.rli"
+  "BypassPreflightChecks": true
+}
+EOF
+
 # install replicated
-curl -Ls -o install.sh https://install.terraform.io/ptfe/stable
-sudo bash install.sh release-sequence=${tfe_release_sequence}
+curl -Ls -o /tmp/install.sh https://install.terraform.io/ptfe/stable
+sudo bash /tmp/install.sh \
+        release-sequence=${tfe_release_sequence} \
+        no-proxy \
+        private-address=$PRIVATE_IP \
+        public-address=$PUBLIC_IP

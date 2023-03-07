@@ -28,7 +28,7 @@ resource "aws_security_group" "fawaz-tfe-es-sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["103.201.126.10/32"]
+    cidr_blocks = ["49.36.220.199/32"]
   }
 
   egress {
@@ -49,6 +49,13 @@ resource "aws_security_group" "fawaz-tfe-es-sg-db" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    security_groups = [aws_security_group.fawaz-tfe-es-sg.id]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
