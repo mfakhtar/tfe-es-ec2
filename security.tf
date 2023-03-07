@@ -39,7 +39,7 @@ resource "aws_security_group" "guide-tfe-es-sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["49.36.220.199/32"]
+    cidr_blocks = [local.myip]
   }
 
   egress {
