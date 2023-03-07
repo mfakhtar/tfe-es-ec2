@@ -1,9 +1,17 @@
+resource "random_pet" "pet" {
+  length = 3
+}
+
 resource "aws_s3_bucket" "guide-tfe-es-s3" {
-  bucket = var.bucket_name
+  bucket = random_pet.pet.id
 
   tags = {
-    Name = var.bucket_name
+    Name = random_pet.pet.id
   }
+}
+
+locals {
+  bucket_name = aws_s3_bucket.guide-tfe-es-s3.id
 }
 
 resource "aws_s3_bucket_acl" "guide-tfe-es-s3-acl" {
@@ -34,8 +42,8 @@ resource "aws_iam_policy" "bucket_policy" {
           "s3:DeleteObject"
         ],
         "Resource" : [
-          "arn:aws:s3:::${var.bucket_name}/*",
-          "arn:aws:s3:::${var.bucket_name}"
+          "arn:aws:s3:::${random_pet.pet.id}/*",
+          "arn:aws:s3:::${random_pet.pet.id}"
         ]
       }
     ]

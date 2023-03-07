@@ -26,7 +26,7 @@ resource "aws_instance" "guide-tfe-es-ec2" {
     volume_size = "50"
   }
   user_data = templatefile("${path.module}/user-data.sh", {
-    bucket_name          = var.bucket_name
+    bucket_name          = local.bucket_name
     region               = var.region
     tfe-pwd              = var.tfe-pwd
     tfe_release_sequence = var.tfe_release_sequence
