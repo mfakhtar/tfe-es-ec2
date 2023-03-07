@@ -23,9 +23,9 @@ resource "aws_subnet" "guide-tfe-es-sub" {
 
 #AWS Subnet for db
 resource "aws_subnet" "guide-tfe-es-sub-db" {
-  vpc_id     = aws_vpc.guide-tfe-es-vpc.id
-  availability_zone       = "ap-south-1b"
-  cidr_block = var.db_subnet_cidr
+  vpc_id            = aws_vpc.guide-tfe-es-vpc.id
+  availability_zone = "ap-south-1b"
+  cidr_block        = var.db_subnet_cidr
   tags = {
     "name" = "guide-tfe-es-pub-sub"
   }

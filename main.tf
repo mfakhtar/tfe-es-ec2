@@ -1,9 +1,15 @@
 #Add Provider Block
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+    }
+  }
+}
+
 provider "aws" {
   region = var.region
 }
-
-
 
 #Add EC2 Block
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
