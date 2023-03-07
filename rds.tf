@@ -11,14 +11,9 @@ resource "aws_db_instance" "default" {
   db_subnet_group_name   = aws_db_subnet_group.default.name
 }
 
-locals {
-  private_subnets = aws_subnet.guide-tfe-es-sub-db.id
-}
-
-
 resource "aws_db_subnet_group" "default" {
   name       = "main"
-  subnet_ids = [guide-tfe-es-sub-db-1a,guide-tfe-es-sub-db-1b]
+  subnet_ids = [aws_subnet.guide-tfe-es-sub-db-1a.id, aws_subnet.guide-tfe-es-sub-db-1b.id]
 
   tags = {
     Name = "My DB subnet group"
