@@ -1,7 +1,7 @@
-resource "aws_security_group" "fawaz-tfe-es-sg" {
-  name        = "tfe-fawaz-es-sg"
+resource "aws_security_group" "guide-tfe-es-sg" {
+  name        = "tfe-guide-es-sg"
   description = "Allow HTTP and SSH traffic via Terraform"
-  vpc_id      = aws_vpc.fawaz-tfe-es-vpc.id
+  vpc_id      = aws_vpc.guide-tfe-es-vpc.id
 
   ingress {
     from_port   = 80
@@ -39,9 +39,9 @@ resource "aws_security_group" "fawaz-tfe-es-sg" {
   }
 }
 
-resource "aws_security_group" "fawaz-tfe-es-sg-db" {
-  name   = "tfe-fawaz-es-sg-db"
-  vpc_id = aws_vpc.fawaz-tfe-es-vpc.id
+resource "aws_security_group" "guide-tfe-es-sg-db" {
+  name   = "tfe-guide-es-sg-db"
+  vpc_id = aws_vpc.guide-tfe-es-vpc.id
 
   ingress {
     from_port   = 80
@@ -53,7 +53,7 @@ resource "aws_security_group" "fawaz-tfe-es-sg-db" {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = [aws_security_group.fawaz-tfe-es-sg.id]
+    security_groups = [aws_security_group.guide-tfe-es-sg.id]
   }
 
   egress {
