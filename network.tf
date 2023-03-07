@@ -25,7 +25,7 @@ resource "aws_subnet" "guide-tfe-es-sub" {
 resource "aws_subnet" "guide-tfe-es-sub-db-1a" {
   vpc_id            = aws_vpc.guide-tfe-es-vpc.id
   availability_zone = var.az1
-  cidr_block        = var.db_subnet_cidr
+  cidr_block        = var.db_subnet_cidr_az1
   tags = {
     "name" = "guide-tfe-es-pub-sub"
   }
@@ -34,7 +34,7 @@ resource "aws_subnet" "guide-tfe-es-sub-db-1a" {
 resource "aws_subnet" "guide-tfe-es-sub-db-1b" {
   vpc_id            = aws_vpc.guide-tfe-es-vpc.id
   availability_zone = var.az2
-  cidr_block        = var.db_subnet_cidr
+  cidr_block        = var.db_subnet_cidr_az2
   tags = {
     "name" = "guide-tfe-es-pub-sub"
   }
