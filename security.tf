@@ -1,3 +1,14 @@
+data "http" "myip" {
+  url = "https://api.ipify.org"
+}
+
+# the public_ip of my gw
+locals {
+  myip = "${data.http.myip.response_body}/32"
+}
+
+# can be used as local.myip
+
 resource "aws_security_group" "guide-tfe-es-sg" {
   name        = "tfe-guide-es-sg"
   description = "Allow HTTP and SSH traffic via Terraform"

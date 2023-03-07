@@ -23,27 +23,25 @@ Before deploying this infrastructure, you will need:
 
 To deploy the infrastructure, follow these steps:
 
-1. Clone this repository to your local machine.
+- Clone this repository to your local machine.
+- Run `terraform init` to initialize the Terraform configuration.
+- Run `terraform plan` to generate an execution plan.
+- If the execution plan looks good, run `terraform apply` to apply the changes to your AWS account.
 
-2. Navigate to the `terraform` directory.
+## Connect to the instance
 
-3. Create a `terraform.tfvars` file with the following contents:
+- create ssh keys
 
-instance_type = "t2.medium"
-vpc_cidr = "10.0.0.0/24"
-subnet_cidr = "10.0.0.0/28"
-db_subnet_cidr = "10.0.0.16/28"
-bucket_name = "s3-bucket-tfe"
-db_user = "admin1"
-db_pass = "Password"
-db_instance_type = "db.t2.micro"
-tfe-pwd = "fawaz123"
-tfe_release_sequence = "652"
+```
+terraform output private_key_pem | grep -v EOT > ~/.ssh/terraform.pem
+chmod 0600 ~/.ssh/terraform.pem
+```
 
-4. Run `terraform init` to initialize the Terraform configuration.
-5. Run `terraform plan` to generate an execution plan.
-6. If the execution plan looks good, run `terraform apply` to apply the changes to your AWS account.
-7. Once the infrastructure is deployed, you should see a new VPC, subnets, internet gateway, security groups, EC2 instance, S3 bucket, EC2 instance role, and DB subnet group in your AWS account.
+- grab command to connect to instance
+
+```
+terraform output ssh_public_ip
+```
 
 ## Cleaning up
 To delete the infrastructure, run `terraform destroy` from the `terraform` directory.
