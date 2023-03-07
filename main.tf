@@ -15,7 +15,7 @@ provider "aws" {
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
 
 resource "aws_instance" "guide-tfe-es-ec2" {
-  availability_zone           = "ap-south-1a"
+  availability_zone           = var.az1
   ami                         = "ami-0f8ca728008ff5af4"
   instance_type               = var.instance_type
   vpc_security_group_ids      = [aws_security_group.guide-tfe-es-sg.id]

@@ -15,7 +15,7 @@ resource "aws_subnet" "guide-tfe-es-sub" {
   vpc_id                  = aws_vpc.guide-tfe-es-vpc.id
   cidr_block              = var.subnet_cidr
   map_public_ip_on_launch = true
-  availability_zone       = "ap-south-1a"
+  availability_zone       = var.az1
   tags = {
     "name" = "guide-tfe-es-pub-sub"
   }
@@ -24,7 +24,7 @@ resource "aws_subnet" "guide-tfe-es-sub" {
 #AWS Subnet for db
 resource "aws_subnet" "guide-tfe-es-sub-db-1a" {
   vpc_id            = aws_vpc.guide-tfe-es-vpc.id
-  availability_zone = "ap-south-1a"
+  availability_zone = var.az1
   cidr_block        = var.db_subnet_cidr
   tags = {
     "name" = "guide-tfe-es-pub-sub"
@@ -33,7 +33,7 @@ resource "aws_subnet" "guide-tfe-es-sub-db-1a" {
 
 resource "aws_subnet" "guide-tfe-es-sub-db-1b" {
   vpc_id            = aws_vpc.guide-tfe-es-vpc.id
-  availability_zone = "ap-south-1b"
+  availability_zone = var.az2
   cidr_block        = var.db_subnet_cidr
   tags = {
     "name" = "guide-tfe-es-pub-sub"

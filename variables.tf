@@ -10,3 +10,5 @@ variable "subnet_cidr" {}
 variable "tfe-pwd" {}
 variable "tfe_release_sequence" {}
 variable "vpc_cidr" {}
+variable "az1" {}
+variable "az2" {}
