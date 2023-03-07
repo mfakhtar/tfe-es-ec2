@@ -15,7 +15,7 @@ variable "bucket_name" {}
 
 variable "db_user" {}
 variable "db_pass" {}
- 
+
 variable "db_instance_type" {}
 
 variable "tfe-pwd" {}

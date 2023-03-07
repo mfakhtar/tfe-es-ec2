@@ -2,7 +2,7 @@
 #Add VPC
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
 resource "aws_vpc" "fawaz-tfe-es-vpc" {
-  cidr_block = var.vpc_cidr
+  cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
   tags = {
     "name" = "fawaz-tfe-es-vpc"
@@ -12,10 +12,10 @@ resource "aws_vpc" "fawaz-tfe-es-vpc" {
 #AWS Subnet for TFE
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet
 resource "aws_subnet" "fawaz-tfe-es-sub" {
-  vpc_id            = aws_vpc.fawaz-tfe-es-vpc.id
-  cidr_block        = var.subnet_cidr
+  vpc_id                  = aws_vpc.fawaz-tfe-es-vpc.id
+  cidr_block              = var.subnet_cidr
   map_public_ip_on_launch = true
-  availability_zone = "ap-south-1a"
+  availability_zone       = "ap-south-1a"
   tags = {
     "name" = "fawaz-tfe-es-pub-sub"
   }
@@ -23,8 +23,8 @@ resource "aws_subnet" "fawaz-tfe-es-sub" {
 
 #AWS Subnet for db
 resource "aws_subnet" "fawaz-tfe-es-sub-db" {
-  vpc_id            = aws_vpc.fawaz-tfe-es-vpc.id
-  cidr_block        = var.db_subnet_cidr
+  vpc_id     = aws_vpc.fawaz-tfe-es-vpc.id
+  cidr_block = var.db_subnet_cidr
   tags = {
     "name" = "fawaz-tfe-es-pub-sub"
   }

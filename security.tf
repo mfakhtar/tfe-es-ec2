@@ -40,8 +40,8 @@ resource "aws_security_group" "fawaz-tfe-es-sg" {
 }
 
 resource "aws_security_group" "fawaz-tfe-es-sg-db" {
-  name        = "tfe-fawaz-es-sg-db"
-  vpc_id      = aws_vpc.fawaz-tfe-es-vpc.id
+  name   = "tfe-fawaz-es-sg-db"
+  vpc_id = aws_vpc.fawaz-tfe-es-vpc.id
 
   ingress {
     from_port   = 80
@@ -50,9 +50,9 @@ resource "aws_security_group" "fawaz-tfe-es-sg-db" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
     security_groups = [aws_security_group.fawaz-tfe-es-sg.id]
   }
 
