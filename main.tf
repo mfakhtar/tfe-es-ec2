@@ -11,6 +11,21 @@ provider "aws" {
   region = var.region
 }
 
+resource "tls_private_key" "private_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "generated_key" {
+  public_key = tls_private_key.private_key.public_key_openssh
+}
+
+output "private_key_pem" {
+  description = "The private key (save this in a .pem file) for ssh to instances"
+  value       = tls_private_key.private_key.private_key_pem
+  sensitive   = true
+}
+
 #Add EC2 Block
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
 
@@ -21,10 +36,12 @@ resource "aws_instance" "guide-tfe-es-ec2" {
   vpc_security_group_ids      = [aws_security_group.guide-tfe-es-sg.id]
   subnet_id                   = aws_subnet.guide-tfe-es-sub.id
   associate_public_ip_address = true
-  key_name                    = "fawaz-tfe-guide"
+  key_name                    = aws_key_pair.generated_key.key_name
+
   root_block_device {
     volume_size = "50"
   }
+
   user_data = templatefile("${path.module}/user-data.sh", {
     bucket_name          = local.bucket_name
     region               = var.region
@@ -39,6 +56,14 @@ resource "aws_instance" "guide-tfe-es-ec2" {
   iam_instance_profile = aws_iam_instance_profile.guide-tfe-es-inst.id
 
 }
+
+output "ssh_public_ip" {
+  description = "Command for ssh to the Client public IP of the EC2 Instance"
+  value = [
+    "ssh ubuntu@${aws_instance.guide-tfe-es-ec2.public_ip} -i ~/.ssh/terraform.pem"
+  ]
+}
+
 /*
 resource "aws_eip" "guide-tfe-eip" {
   instance = aws_instance.guide-tfe-es-ec2.id
