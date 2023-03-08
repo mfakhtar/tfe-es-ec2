@@ -35,7 +35,7 @@ cat > /tmp/tfe_settings.json <<EOF
         "value": "${db_password}"
     },
     "pg_user": {
-        "value": "postgres"
+        "value": "${db_user}"
     },
     "placement": {
         "value": "placement_s3"
