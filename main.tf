@@ -44,11 +44,4 @@ resource "aws_instance" "guide-tfe-es-ec2" {
 
 }
 
-output "ssh_public_ip" {
-  description = "Command for ssh to the Client public IP of the EC2 Instance"
-  value = [
-    "ssh ubuntu@${aws_instance.guide-tfe-es-ec2.public_ip} -i key.pem"
-  ]
-}
-
 
