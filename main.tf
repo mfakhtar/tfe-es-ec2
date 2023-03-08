@@ -35,7 +35,7 @@ resource "aws_instance" "guide-tfe-es-ec2" {
     tfe_release_sequence = var.tfe_release_sequence
     db_name              = aws_db_instance.default.db_name
     db_address           = aws_db_instance.default.address
-    db_user          = var.db_user
+    db_user              = var.db_user
     db_password          = var.db_pass
   })
 
