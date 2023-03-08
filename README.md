@@ -3,20 +3,21 @@
 This repository contains Terraform code to deploy the following infrastructure on AWS:
 
 - 1 VPC
-- 2 Subnets
+- 3 Subnets
 - 1 Internet Gateway
 - 2 Security Groups
 - 1 EC2 instance
 - 1 S3 bucket
-- EC2 instance role to connect to S3 and RDS
+- EC2 instance role to connect to S3
 - AWS DB Subnet Group
+- 1 Key.pem
 
 ## Prerequisites
 
 Before deploying this infrastructure, you will need:
 
 - An AWS account with permissions to create the above resources
-- AWS CLI installed and configured on your local machine
+- Authentication/Access and Secret Access Key to AWS Account
 - Terraform CLI installed on your local machine
 
 ## Usage
@@ -28,14 +29,20 @@ To deploy the infrastructure, follow these steps:
 - Run `terraform plan` to generate an execution plan.
 - If the execution plan looks good, run `terraform apply` to apply the changes to your AWS account.
 
+## Diagram for the Infrastucture Created
+![Screenshot](aws_infrastructure.png)
+
+- How to create the diagram
+
+```
+Install python
+Install Graphviz
+Install Diagrams
+cd to diagram folder on this repo
+python main.py
+```
+
 ## Connect to the instance
-
-- create ssh keys
-
-```
-terraform output private_key_pem | grep -v EOT > ~/.ssh/terraform.pem
-chmod 0600 ~/.ssh/terraform.pem
-```
 
 - grab command to connect to instance
 

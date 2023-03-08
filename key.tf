@@ -21,3 +21,14 @@ output "private_key_pem" {
   value       = tls_private_key.ssh_key.private_key_pem
   sensitive   = true
 }
+
+output "ssh_public_ip" {
+  description = "Command for ssh to the Client public IP of the EC2 Instance"
+  value = [
+    "ssh ubuntu@${aws_eip.bar.public_dns} -i key.pem"
+  ]
+}
+
+output "replicated-ui" {
+  value = "https://${aws_eip.bar.public_dns}:8800/"
+}
