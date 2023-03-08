@@ -11,18 +11,27 @@ provider "aws" {
   region = var.region
 }
 
-resource "tls_private_key" "private_key" {
+# Generate the SSH key pair
+resource "tls_private_key" "ssh_key" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
-resource "aws_key_pair" "generated_key" {
-  public_key = tls_private_key.private_key.public_key_openssh
+# Upload the public key to AWS
+resource "aws_key_pair" "ssh_key_pair" {
+  key_name   = "key"
+  public_key = tls_private_key.ssh_key.public_key_openssh
+}
+
+resource "local_file" "foo" {
+  content  = tls_private_key.ssh_key.private_key_pem
+  filename = "key.pem"
+  file_permission = "0400"
 }
 
 output "private_key_pem" {
   description = "The private key (save this in a .pem file) for ssh to instances"
-  value       = tls_private_key.private_key.private_key_pem
+  value       = tls_private_key.ssh_key.private_key_pem
   sensitive   = true
 }
 
@@ -36,7 +45,7 @@ resource "aws_instance" "guide-tfe-es-ec2" {
   vpc_security_group_ids      = [aws_security_group.guide-tfe-es-sg.id]
   subnet_id                   = aws_subnet.guide-tfe-es-sub.id
   associate_public_ip_address = true
-  key_name                    = aws_key_pair.generated_key.key_name
+  key_name                    = aws_key_pair.ssh_key_pair.key_name
 
   root_block_device {
     volume_size = "50"
