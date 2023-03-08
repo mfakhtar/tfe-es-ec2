@@ -81,3 +81,10 @@ resource "aws_route_table_association" "guide-tfe-es-pub-rt-asc" {
   subnet_id      = aws_subnet.guide-tfe-es-sub.id
   route_table_id = aws_route_table.guide-tfe-es-pub-rt.id
 }
+
+resource "aws_eip" "bar" {
+  vpc = true
+
+  instance                  = aws_instance.guide-tfe-es-ec2.id
+  associate_with_private_ip = aws_instance.guide-tfe-es-ec2.private_ip
+}
