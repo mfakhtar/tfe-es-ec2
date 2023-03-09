@@ -19,7 +19,7 @@ output "private_key_pem" {
 output "ssh_public_ip" {
   description = "Command for ssh to the Client public IP of the EC2 Instance"
   value = [
-    "ssh ubuntu@${aws_eip.bar.public_dns} -i key.pem"
+    "ssh ubuntu@${aws_eip.bar.public_dns} -i ~/.ssh/terraform.pem"
   ]
 }
 
