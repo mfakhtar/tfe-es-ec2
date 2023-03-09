@@ -55,6 +55,12 @@ how
 
 ## Connect to the instance
 
+- create ssh key
+```
+terraform output private_key_pem | grep -v EOT > ~/.ssh/terraform.pem
+chmod 0600 ~/.ssh/terraform.pem
+```
+
 - grab command to connect to instance
 ```
 terraform output ssh_public_ip
