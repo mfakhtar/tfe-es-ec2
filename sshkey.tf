@@ -22,7 +22,3 @@ output "ssh_public_ip" {
     "ssh ubuntu@${aws_eip.bar.public_dns} -i ~/.ssh/terraform.pem"
   ]
 }
-
-output "replicated-ui" {
-  value = "https://${aws_eip.bar.public_dns}:8800/"
-}
