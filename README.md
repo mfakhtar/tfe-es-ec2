@@ -1,5 +1,8 @@
 # Terraform Infrastructure Code
 
+## Diagram for the Infrastucture Created
+![Screenshot](diagram/aws_infrastructure.png)
+
 This repository contains Terraform code to deploy the following infrastructure on AWS:
 
 - 1 VPC
@@ -29,18 +32,7 @@ To deploy the infrastructure, follow these steps:
 - Run `terraform plan` to generate an execution plan.
 - If the execution plan looks good, run `terraform apply` to apply the changes to your AWS account.
 
-## Diagram for the Infrastucture Created
-![Screenshot](aws_infrastructure.png)
 
-- How to create the diagram
-
-```
-Install python
-Install Graphviz
-Install Diagrams
-cd to diagram folder on this repo
-python main.py
-```
 
 ## Connect to the instance
 
