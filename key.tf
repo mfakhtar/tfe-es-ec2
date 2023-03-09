@@ -10,12 +10,6 @@ resource "aws_key_pair" "ssh_key_pair" {
   public_key = tls_private_key.ssh_key.public_key_openssh
 }
 
-resource "local_file" "foo" {
-  content         = tls_private_key.ssh_key.private_key_pem
-  filename        = "key.pem"
-  file_permission = "0400"
-}
-
 output "private_key_pem" {
   description = "The private key (save this in a .pem file) for ssh to instances"
   value       = tls_private_key.ssh_key.private_key_pem
