@@ -1,19 +1,19 @@
 
-#Add VPC
+#vpc
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
 resource "aws_vpc" "guide-tfe-es-vpc" {
-  cidr_block           = var.vpc_cidr
+  cidr_block           = var.vpc_network
   enable_dns_hostnames = true
   tags = {
     "name" = "guide-tfe-es-vpc"
   }
 }
 
-#AWS Subnet for TFE
+#subnet
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet
 resource "aws_subnet" "guide-tfe-es-sub" {
   vpc_id                  = aws_vpc.guide-tfe-es-vpc.id
-  cidr_block              = var.subnet_cidr
+  cidr_block              = var.subnet
   map_public_ip_on_launch = true
   availability_zone       = var.az1
   tags = {
@@ -25,7 +25,7 @@ resource "aws_subnet" "guide-tfe-es-sub" {
 resource "aws_subnet" "guide-tfe-es-sub-db-1a" {
   vpc_id            = aws_vpc.guide-tfe-es-vpc.id
   availability_zone = var.az1
-  cidr_block        = var.db_subnet_cidr_az1
+  cidr_block        = var.db_subnet_az1
   tags = {
     "name" = "guide-tfe-es-pub-sub"
   }
@@ -34,7 +34,7 @@ resource "aws_subnet" "guide-tfe-es-sub-db-1a" {
 resource "aws_subnet" "guide-tfe-es-sub-db-1b" {
   vpc_id            = aws_vpc.guide-tfe-es-vpc.id
   availability_zone = var.az2
-  cidr_block        = var.db_subnet_cidr_az2
+  cidr_block        = var.db_subnet_az2
   tags = {
     "name" = "guide-tfe-es-pub-sub"
   }

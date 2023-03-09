@@ -1,4 +1,3 @@
-#Data is require to get AMI ID of Ubuntu
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami_ids
 
 data "aws_ami" "ubuntu" {

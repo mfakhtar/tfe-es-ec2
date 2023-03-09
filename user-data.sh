@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#Install AWS_CLI
-sudo apt-get update
-sudo apt-get install -y awscli jq
+#install awscli
+apt-get update
+apt-get install -y awscli jq
 
 #copy license file from S3
 aws s3 cp s3://${bucket_name}/license.rli /tmp/license.rli
@@ -17,7 +17,7 @@ cat > /tmp/tfe_settings.json <<EOF
         "value": "1"
     },
     "enc_password": {
-        "value": "${tfe-pwd}"
+        "value": "${tfe_password}"
     },
     "hairpin_addressing": {
         "value": "0"
@@ -65,7 +65,7 @@ fi
 cat > /etc/replicated.conf <<EOF
 {
   "DaemonAuthenticationType": "password",
-  "DaemonAuthenticationPassword": "${tfe-pwd}",
+  "DaemonAuthenticationPassword": "${tfe_password}",
   "TlsBootstrapType": "self-signed",
   "TlsBootstrapHostname": "$PUBLIC_DNS",
   "LogLevel": "debug",
@@ -85,7 +85,7 @@ fi
 # install replicated
 curl -Ls -o /tmp/install.sh https://install.terraform.io/ptfe/stable
 sudo bash /tmp/install.sh \
-        release-sequence=${tfe_release_sequence} \
+        release-sequence=${tfe_release} \
         no-proxy \
         private-address=$PRIVATE_IP \
         public-address=$PUBLIC_IP
