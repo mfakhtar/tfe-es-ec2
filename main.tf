@@ -39,9 +39,7 @@ resource "aws_instance" "guide-tfe-es-ec2" {
     db_password          = var.db_pass
   })
 
-
   iam_instance_profile = aws_iam_instance_profile.guide-tfe-es-inst.id
 
 }
-
 
