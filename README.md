@@ -1,7 +1,6 @@
 # Terraform Enterprise Guide
 
-## Why we have this repo
-??
+This repo will deploy Terraform Enterprise External Services with below following resources.
 
 ## Diagram for the Infrastucture Created
 ![Screenshot](diagram/aws_infrastructure.png)
@@ -33,22 +32,24 @@ To deploy the infrastructure, follow these steps:
 
 - Clone this repository to your local machine.
 ```
-how
+git clone https://github.com/mfakhtar/tfe-es-ec2.git
+cd tfe-es-ec2
 ```
 
 - Run `terraform init`
 ```
-how
+terraform init
 ```
 
 - Run `terraform plan`
 ```
-how
+terraform plan
 ```
 
 - Run `terraform apply`
 ```
-how
+terraform apply
+type "yes" when prompted to confirm the deployment.
 ```
 
 
@@ -75,5 +76,6 @@ how
 To delete the infrastructure
 - run `terraform destroy`
 ```
-how
+terraform destroy
+type "yes" when prompted to confirm the destruction.
 ```
