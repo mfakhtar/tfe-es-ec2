@@ -69,7 +69,7 @@ terraform output ssh_public_ip
 
 - connect to instance
 ```
-how
+ssh ubuntu@$<tfe_ip_address> -i ~/.ssh/terraform.pem"
 ```
 
 ## Cleaning up
