@@ -9,6 +9,13 @@ terraform {
 
 provider "aws" {
   region = var.region
+  default_tags {
+    tags = {
+      Name    = "fawaz-tfe-es-ec2-no-ssl"
+      Owner   = "Fawaz"
+      purpose = var.purpose
+    }
+  }
 }
 
 

@@ -30,3 +30,5 @@ variable "tfe_password" {}
 variable "tfe_release" {
   description = "tfe release we want to install"
 }
+variable "bucket_name" {}
+variable "purpose" {}
